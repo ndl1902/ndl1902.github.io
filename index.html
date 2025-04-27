@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Web GIS Cơ Bản</title>
+    <title>Web GIS Cơ Bản với Tìm Kiếm</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Nhúng thư viện Leaflet CSS và JS -->
+    <!-- Leaflet CSS và JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Thư viện Geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
     <style>
         #map {
@@ -21,21 +25,25 @@
 <div id="map"></div>
 
 <script>
-    // Tạo bản đồ, đặt tâm ở một tọa độ
-    var map = L.map('map').setView([21.0285, 105.8542], 13); // Hà Nội
+    // Khởi tạo bản đồ
+    var map = L.map('map').setView([21.0285, 105.8542], 13);
 
-    // Thêm lớp nền OpenStreetMap
+    // Thêm lớp nền
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Thêm một marker
+    // Thêm Marker
     var marker = L.marker([21.0285, 105.8542]).addTo(map);
-    marker.bindPopup("<b>Hà Nội</b><br>Thủ đô Việt Nam.").openPopup();
+    marker.bindPopup("<b>Hà Nội</b><br>Thủ đô Việt Nam.");
 
-    // Thêm 1 điểm khác (ví dụ Đà Nẵng)
     var marker2 = L.marker([16.0544, 108.2022]).addTo(map);
-    marker2.bindPopup("<b>Đà Nẵng</b><br>Thành phố biển.").openPopup();
+    marker2.bindPopup("<b>Đà Nẵng</b><br>Thành phố biển.");
+
+    // Thêm công cụ tìm kiếm địa điểm
+    L.Control.geocoder({
+        defaultMarkGeocode: true
+    }).addTo(map);
 </script>
 
 </body>
